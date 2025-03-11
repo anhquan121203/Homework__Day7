@@ -1,10 +1,10 @@
 /**
  * #Homework:
 1. Difference(s) between == and ===?
-    ==: chỉ so sánh giá trị, kh so sánh kiểu dữ liệu
-        Ex: 5 == "5" -> true, vì 5 = 5
-    ===: chỉ so sánh giá trị và kiểu dữ liệu
-        Ex: 5 === "5" -> false, vì "5" => string
+    ==: compare only value, not data type
+        Ex: 5 == "5" -> true, because 5 = 5
+    ===: compare only value and data type
+        Ex: 5 === "5" -> false, because "5" => string
 2. Use variables and operators to:
     - Calculate BMI (Body Mass Index)
     - Calculate Simple Interest (principal * rate * time)
@@ -37,13 +37,29 @@ const Currency = money * local;
 console.log("Currency: ", Currency);
 
 // Calculate Time (hours:minutes:seconds)
+function calculateTime(value, time) {
+  let totalSeconds;
 
-let now = new Date();
-let hours = now.getHours().toString().padStart(2, "0");
-let minutes = now.getMinutes().toString().padStart(2, "0");
-let seconds = now.getSeconds().toString().padStart(2, "0");
-let timeNow = `${hours}:${minutes}:${seconds}`;
-console.log("TimeNow: ", timeNow);
+  if (time === "minutes") {
+    totalSeconds = value * 60;
+  } else if (time === "seconds") {
+    totalSeconds = value;
+  } else {
+    console.log("Invalid unit. Please enter 'minutes' or 'seconds'.");
+    return;
+  }
+
+  let hours = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  console.log(
+    `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2,"0")}`
+  );
+}
+
+calculateTime(500, "minutes");
+calculateTime(1000, "minutes")
 
 /**
 #Additional challenges:
@@ -55,9 +71,9 @@ console.log("TimeNow: ", timeNow);
  */
 
 /**
- * let: giá trị có thể thay đổi được
- * const: giá trị không thể thay đổi được vì nó là một hằng số
- * var: có thể khai báo được ở ngoài phạm vi {}
+* let: value can be changed
+* const: value cannot be changed because it is a constant
+* var: can be declared outside the scope {}
  * EX:  function example() {
   if (true) {
     var x = 10;
